@@ -24,6 +24,10 @@ namespace GLR_Backend_API_NET_CORE
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            using (var config = new ApplicationDBContext())
+            {
+                config.Database.EnsureCreated();
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,7 +38,13 @@ namespace GLR_Backend_API_NET_CORE
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+            app.UseCors(builder =>
+                builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("default", "{controller=Values}/{action=Get}/{id?}");
+            });
         }
     }
 }
