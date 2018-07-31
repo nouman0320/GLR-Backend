@@ -10,6 +10,7 @@ namespace GLR_Backend_API_NET_CORE
 {
     public class ApplicationDBContext : DbContext
     {
+        public DbSet<UserInfo> UserInfos { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Teacher>  Teachers { get; set; }
         public DbSet<Course> Courses { get; set; }

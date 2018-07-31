@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GLR_Backend_API_NET_CORE.BusinessLogic;
 using Microsoft.AspNetCore.Mvc;
-
+using GLR_Backend_API_NET_CORE.Models;
 // For more information on enabling MVC for empty projects, visit
 
 namespace GLR_Backend_API_NET_CORE.Controllers
@@ -19,18 +20,15 @@ namespace GLR_Backend_API_NET_CORE.Controllers
             return View();
         }
         [HttpPost]
-        public bool Login([FromBody] User user)
+        public bool Login([FromBody] UserInfo userInfo)
         {
-            if (user.Email.Equals("usman") && user.Password.Equals("usman"))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
-
+            return RegistrationService.login(userInfo);
+        }
+        [HttpPost]
+        public bool register([FromBody] GLR_Backend_API_NET_CORE.Models.UserInfo userInfo)
+        {
+             
+            return RegistrationService.register(userInfo);
         }
     }
     public class User
